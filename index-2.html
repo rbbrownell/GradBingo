@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Candidate Bingo</title>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .bingo-container {
+            text-align: center;
+            max-width: 100%; /* Ensure container doesn't overflow */
+            overflow-x: auto; /* Enable horizontal scrolling on small screens */
+        }
+
+        .bingo-card {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* Flexibly sized columns */
+            gap: 10px;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 600px; /* Set a maximum width for larger screens */
+        }
+
+        .bingo-square {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+            border: 2px solid #000;
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.2s ease;
+            padding: 10px;
+            box-sizing: border-box;
+            height: 100px; /* Set a fixed height to ensure all rectangles are the same height */
+        }
+
+        .bingo-square:hover {
+            background-color: #c0c0c0;
+        }
+
+        .bingo-square:focus {
+            outline: 3px solid #005fcc;
+        }
+
+        .bingo-square.marked {
+            background-color: #285229; /* Darker green for better contrast */
+            color: #fff;
+        }
+
+        .free {
+            background-color: #8b6a25; /* Darker yellow for better contrast */
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .shuffle-button {
+            margin-top: 30px;
+            padding: 10px 20px;
+            font-size: 16px;
+            aria-label: "Shuffle the bingo card";
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 600px) {
+            .bingo-card {
+                grid-template-columns: repeat(5, 1fr); /* Keep it 5x5, but shrink items */
+            }
+
+            .bingo-square {
+                font-size: 10px; /* Slightly smaller text on small screens */
+                padding: 8px; /* Adjust padding for smaller screens */
+                height: 80px; /* Adjust height for smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bingo-container">
+        <h1>Faculty Candidate Bingo</h1>
+        <div class="bingo-card" id="bingoCard">
+            <!-- Bingo squares will be dynamically generated here -->
+        </div>
+        <button class="shuffle-button" onclick="shuffleBingo()">Shuffle Bingo Card</button>
+        <div id="liveRegion" aria-live="polite" style="position: absolute; left: -9999px;"></div>
+    </div>
+
+    <script>
+        const bingoItems = [
+            'Q ="why care?"',
+            '"Great Q"',
+            '"Happy to talk more"',
+            '"I need to do more research"',
+            '"I get x..." (doesn\'t)',
+            '"In this framework"',
+            '"In this scope"',
+            '"Maybe for the next paper"',
+            '"Mod\'s privilege"',
+            '"Quick follow up"',
+            '"Thanks for that Q"',
+            '"Vis-a-vis prior decisions"',
+            'Q that is >2 Qs',
+            '"I like your paper, but"',
+            '"I\'m not an x scholar, but"',
+            '"I like x. Make it about x"',
+            'Mod: "I have Qs, but"',
+            'Normative Q',
+            'Q = statement',
+            'Terrible, verbose PPT',
+            '"Thanks for the paper"',
+            '"Thanks for the talk"',
+            'Awkward laughing',
+            '"Who\'s this for?"',
+            '"I haven\'t read it, but"',
+            'IT issues',
+            'Q to ask a Q',
+            'Answer = "FU for this Q"',
+            'Counterfactual',
+            '"building on what x said"'
+        ];
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function generateBingoCard() {
+            const bingoCard = document.getElementById("bingoCard");
+            bingoCard.innerHTML = ''; // Clear previous card
+            let shuffledItems = [...bingoItems];
+            shuffleArray(shuffledItems);
+
+            for (let i = 0; i < 25; i++) {
+                const square = document.createElement("div");
+                square.className = 'bingo-square';
+                square.setAttribute('tabindex', '0');
+                square.setAttribute('role', 'button');
+                if (i === 12) {  // Middle space (free space)
+                    square.innerHTML = '&quot;That guy&quot;<br>asks a Q';
+                    square.classList.add("free");
+                } else {
+                    square.innerHTML = shuffledItems.pop();
+                }
+                square.addEventListener('click', () => {
+                    square.classList.toggle('marked');
+                });
+                square.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        square.classList.toggle('marked');
+                    }
+                });
+                bingoCard.appendChild(square);
+            }
+        }
+
+        function shuffleBingo() {
+            generateBingoCard();
+            document.getElementById('liveRegion').textContent = 'Bingo card has been shuffled';
+        }
+
+        // Generate the first card when the page loads
+        window.onload = shuffleBingo;
+    </script>
+</body>
+</html>
