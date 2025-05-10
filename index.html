@@ -4,7 +4,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Faculty Candidate Bingo</title>
+    <title>Graduation Bingo</title>
     <style>
         body {
             font-family: 'Open Sans', sans-serif;
@@ -27,10 +27,10 @@
         .bingo-card {
             display: grid;
             grid-template-columns: repeat(5, 1fr); /* Flexibly sized columns */
-            gap: 10px;
+            gap: 5px;
             margin-top: 20px;
             width: 100%;
-            max-width: 600px; /* Set a maximum width for larger screens */
+            max-width: 700px; /* Set a maximum width for larger screens */
         }
 
         .bingo-square {
@@ -45,9 +45,9 @@
             cursor: pointer;
             user-select: none;
             transition: background-color 0.2s ease;
-            padding: 10px;
+            padding: 5px;
             box-sizing: border-box;
-            height: 100px; /* Set a fixed height to ensure all rectangles are the same height */
+            height: 120px; /* Set a fixed height to ensure all rectangles are the same height */
         }
 
         .bingo-square:hover {
@@ -83,8 +83,8 @@
             }
 
             .bingo-square {
-                font-size: 10px; /* Slightly smaller text on small screens */
-                padding: 8px; /* Adjust padding for smaller screens */
+                font-size: 9px; /* Slightly smaller text on small screens */
+                padding: 4px; /* Adjust padding for smaller screens */
                 height: 80px; /* Adjust height for smaller screens */
             }
         }
@@ -92,7 +92,7 @@
 </head>
 <body>
     <div class="bingo-container">
-        <h1>Faculty Candidate Bingo</h1>
+        <h1>Graduation Bingo</h1>
         <div class="bingo-card" id="bingoCard">
             <!-- Bingo squares will be dynamically generated here -->
         </div>
@@ -102,36 +102,50 @@
 
     <script>
         const bingoItems = [
-            'Q ="why care?"',
-            '"Great Q"',
-            '"Happy to talk more"',
-            '"I need to do more research"',
-            '"I get x..." (doesn\'t)',
-            '"In this framework"',
-            '"In this scope"',
-            '"Maybe for the next paper"',
-            '"Mod\'s privilege"',
-            '"Quick follow up"',
-            '"Thanks for that Q"',
-            '"Vis-a-vis prior decisions"',
-            'Q that is >2 Qs',
-            '"I like your paper, but"',
-            '"I\'m not an x scholar, but"',
-            '"I like x. Make it about x"',
-            'Mod: "I have Qs, but"',
-            'Normative Q',
-            'Q = statement',
-            'Terrible, verbose PPT',
-            '"Thanks for the paper"',
-            '"Thanks for the talk"',
-            'Awkward laughing',
-            '"Who\'s this for?"',
-            '"I haven\'t read it, but"',
-            'IT issues',
-            'Q to ask a Q',
-            'Answer = "FU for this Q"',
-            'Counterfactual',
-            '"building on what x said"'
+            'Mispro-<br>nounced name',
+            'Unique cheering device',
+            '"change the world"',
+            '"Interesting times"',
+            '"Knoked down? Get up again"',
+            '"Noble profession"',
+            'Guest hood, uncle/aunt',
+            'Two hooders',
+            'Guest hood, sibling',
+            'Someone trips',
+            'Restart name',
+            '“Unprece-<br>dented”',
+            'Dean handshake',
+            'Keynote listicle',
+            '"I’m old"',
+            '"Pop culture reference"',
+            '"In my day"',
+            'Over-congratulate families',
+            '"Please no applause"<br>👏👏👏',
+            '3+ faculty:<br>sit? stand?',
+            'Faculty<br>😴',
+            'Tiny fan',
+            'Glittery<br>👞👞',
+            '3 🧑‍🎓,<br>same last name',
+            'Speaker describes a knight',
+            '“I’ve been dean so long”',
+            '“First-gen”',
+            '“John O’Quinn”',
+            'Len: "[niche ranking]"',
+            '“Sondock”',
+            '🤭<br>That’s what she said',
+            'Protest',
+            'Student<br>🕺',
+            '“Covid”',
+            '“AI”',
+            '“Rule of law”',
+            '🧑‍🎓 w/ accessory',
+            'Phone left on',
+            'Someone watching sports',
+            'Coordinated cheer',
+            '“Unity”',
+            '"Pass Torch"',
+            '“Pipeline”',
+            '“New building”',
         ];
 
         function shuffleArray(array) {
@@ -153,7 +167,7 @@
                 square.setAttribute('tabindex', '0');
                 square.setAttribute('role', 'button');
                 if (i === 12) {  // Middle space (free space)
-                    square.innerHTML = '&quot;That guy&quot;<br>asks a Q';
+                    square.innerHTML = 'Dean repeats 2x';
                     square.classList.add("free");
                 } else {
                     square.innerHTML = shuffledItems.pop();
